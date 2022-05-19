@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="SEALMobile.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="Red" Padding="50" CornerRadius="0">
+            <Label Text="SEAL CKKS DEMO" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+        <Entry x:Name="a_entry" Placeholder="Please Enter A Value"></Entry>
+        <Entry x:Name="b_entry" Placeholder="Please Enter B Value"></Entry>
+        <Label x:Name="c_Label">A + B =  </Label>
+        <Button Text="Compute" Clicked="HandleClick"/>
+        <Button Text="Compute with SEAL CKKS" Clicked="HandleClickCKKS"/>
+        <Button Text="HTTP" Clicked="HandleHTTP"/>
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,16 @@
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/SEALMobile.csproj.AssemblyReference.cache
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/SEALMobile.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/App.xaml.g.cs
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/MainPage.xaml.g.cs
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/SEALMobile.AssemblyInfoInputs.cache
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/SEALMobile.AssemblyInfo.cs
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/SEALMobile.csproj.CoreCompileInputs.cache
+/Users/nataset/Projects/SEALMobile/SEALMobile/bin/Debug/netstandard2.0/libsealc.dylib
+/Users/nataset/Projects/SEALMobile/SEALMobile/bin/Debug/netstandard2.0/SEALMobile.deps.json
+/Users/nataset/Projects/SEALMobile/SEALMobile/bin/Debug/netstandard2.0/SEALMobile.dll
+/Users/nataset/Projects/SEALMobile/SEALMobile/bin/Debug/netstandard2.0/ref/SEALMobile.dll
+/Users/nataset/Projects/SEALMobile/SEALMobile/bin/Debug/netstandard2.0/SEALMobile.pdb
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/XamlC.stamp
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/SEALMobile.dll
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/ref/SEALMobile.dll
+/Users/nataset/Projects/SEALMobile/SEALMobile/obj/Debug/netstandard2.0/SEALMobile.pdb

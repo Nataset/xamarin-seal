@@ -1,0 +1,22 @@
+﻿<Properties StartupConfiguration="{3B78456A-5FE2-4DBB-ADBB-389B7B8614B4}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SEALMobile.Android/SEALMobile.Android.csproj">
+    <Files>
+      <File FileName="SEALMobile.iOS/Info.plist" />
+      <File FileName="SEALMobile/App.xaml.cs" />
+      <File FileName="SEALMobile/Utilities.cs" />
+      <File FileName="SEALMobile/MainPage.xaml.cs" />
+      <File FileName="SEALMobile/SEALMobile.csproj" />
+      <File FileName="SEALMobile/MainPage.xaml" />
+      <File FileName="SEALMobile.iOS/Main.cs" />
+      <File FileName="SEALMobile.Android/SEALMobile.Android.csproj" Line="54" Column="15" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.SEALMobile.Android PreferredExecutionTarget="Android.emulator-5554" />
+  <MonoDevelop.Ide.ItemProperties.SEALMobile.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.4C40DECD-631D-432C-B642-3C9F8F26147A" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
