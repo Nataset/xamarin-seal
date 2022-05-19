@@ -89,7 +89,6 @@ namespace SEALMobile
             float a = float.Parse(a_entry.Text);
             float b = float.Parse(b_entry.Text);
             c_Label.Text = "A + B = " + (a + b).ToString("0.00000000");
-            Utilities.PrintParameters(context);
         }
 
 
