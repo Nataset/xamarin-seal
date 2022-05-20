@@ -31,43 +31,19 @@ namespace SEALMobile
 
     public partial class MainPage : ContentPage
     {
-        EncryptionParameters parms;
-        SEALContext context;
-        KeyGenerator keygen;
-        PublicKey publicKey;
-        RelinKeys relinKeys;
-        SecretKey secretKey;
-        Encryptor encryptor;
-        Evaluator evaluator;
-        Decryptor decryptor;
-        CKKSEncoder encoder;
         double scale = Math.Pow(2.0, 30);
-
+        string url;
+        BatchEncoder batchEncoder;
+        CKKSEncoder ckksEncoder;
+        SEALContext context;
+        EncryptionParameters parms;
 
 
 
         public MainPage()
         {
             InitializeComponent();
-            parms = new EncryptionParameters(SchemeType.CKKS);
-
-            parms.PolyModulusDegree = 8192;
-            parms.CoeffModulus = CoeffModulus.Create(
-                8192, new int[] { 40, 40, 40, 40, 40 });
-
-
-            context = new SEALContext(parms);
-            keygen = new KeyGenerator(context);
-            secretKey = keygen.SecretKey;
-
-            keygen.CreatePublicKey(out publicKey);
-            keygen.CreateRelinKeys(out relinKeys);
-
-            encryptor = new Encryptor(context, publicKey);
-            evaluator = new Evaluator(context);
-            decryptor = new Decryptor(context, secretKey);
-
-            encoder = new CKKSEncoder(context);
+           
 
         }
 
@@ -84,48 +60,10 @@ namespace SEALMobile
             return contents;
         }
 
-        void HandleClick(object sender, System.EventArgs e)
-        {
-            float a = float.Parse(a_entry.Text);
-            float b = float.Parse(b_entry.Text);
-            c_Label.Text = "A + B = " + (a + b).ToString("0.00000000");
-        }
-
-
-        void HandleClickCKKS(object sender, System.EventArgs e)
-        {
-            float a = float.Parse(a_entry.Text);
-            float b = float.Parse(b_entry.Text);
-
-
-            using Plaintext plain1 = new Plaintext();
-            using Plaintext plain2 = new Plaintext();
-
-            encoder.Encode(a, scale, plain1);
-            encoder.Encode(b, scale, plain2);
-
-            using Ciphertext encrypted1 = new Ciphertext();
-            using Ciphertext encrypted2 = new Ciphertext();
-            encryptor.Encrypt(plain1, encrypted1);
-            encryptor.Encrypt(plain2, encrypted2);
-
-            using Ciphertext encryptedResult = new Ciphertext();
-            using Ciphertext encryptedResult2 = new Ciphertext();
-            ulong test = 2;
-            evaluator.Add(encrypted1, encrypted2, encryptedResult);
-            evaluator.Exponentiate(encryptedResult, test, relinKeys, encryptedResult2);
-
-            using Plaintext plainResult = new Plaintext();
-            List<double> result = new List<double>();
-            decryptor.Decrypt(encryptedResult2, plainResult);
-            encoder.Decode(plainResult, result);
-            Console.WriteLine(result[0]);
-
-            c_Label.Text = "A + B = " + (result[1]).ToString("0.00000000");
-        }
-
         async void HandleHTTP(object sender, System.EventArgs e)
         {
+
+            string schemeType = ((Button)sender).BindingContext as string;
 
             float a = float.Parse(a_entry.Text);
             float b = float.Parse(b_entry.Text);
@@ -136,11 +74,43 @@ namespace SEALMobile
             using MemoryStream pkStream = new MemoryStream();
             using MemoryStream rlkStream = new MemoryStream();
 
+            switch (schemeType)
+            {
+                case "BFV":
+                    url = "http://localhost:3000/bfv";
+                    parms = new EncryptionParameters(SchemeType.BFV);
+                    parms.PolyModulusDegree = 8192;
+                    parms.CoeffModulus = CoeffModulus.BFVDefault(8192);
+                    parms.PlainModulus = PlainModulus.Batching(8192, 20);
+                    context = new SEALContext(parms);
+                    break;
+                case "BGV":
+                    url = "http://localhost:3000/bgv";
+                    parms = new EncryptionParameters(SchemeType.BGV);
+                    parms.PolyModulusDegree = 8192;
+                    parms.CoeffModulus = CoeffModulus.BFVDefault(8192);
+                    parms.PlainModulus = PlainModulus.Batching(8192, 20);
+                    context = new SEALContext(parms);
+                    break;
+                case "CKKS":
+                    url = "http://localhost:3000/ckks";
+                    parms = new EncryptionParameters(SchemeType.CKKS);
+                    parms.PolyModulusDegree = 8192;
+                    parms.CoeffModulus = CoeffModulus.Create(
+                        8192, new int[] { 40, 40, 40, 40, 40 });
+                    context = new SEALContext(parms);
+                    break;
+            }
 
-            //ulong polyModulusDegree = 4096;
-            //parms.PolyModulusDegree = polyModulusDegree;
-            //parms.CoeffModulus = CoeffModulus.Create(
-            //    polyModulusDegree, new int[] { 40, 40 });
+            KeyGenerator keygen = new KeyGenerator(context);
+            SecretKey secretKey = keygen.SecretKey;
+
+            keygen.CreatePublicKey(out PublicKey publicKey);
+            keygen.CreateRelinKeys(out RelinKeys relinKeys);
+
+            Encryptor encryptor = new Encryptor(context, publicKey);
+            Evaluator evaluator = new Evaluator(context);
+            Decryptor decryptor = new Decryptor(context, secretKey);
 
             parms.Save(parmsStream);
             parmsStream.Seek(0, SeekOrigin.Begin);
@@ -155,14 +125,29 @@ namespace SEALMobile
             rlkStream.Seek(0, SeekOrigin.Begin);
             var rlkBase64 = ToBase64(rlkStream);
 
-            //relinKeys.Save(dataAStream);
-            //relinKeys.Save(dataBStream);
 
             using Plaintext plain1 = new Plaintext();
             using Plaintext plain2 = new Plaintext();
 
-            encoder.Encode(a, scale, plain1);
-            encoder.Encode(b, scale, plain2);
+            if (schemeType == "CKKS")
+            {
+
+                ckksEncoder = new CKKSEncoder(context);
+                ckksEncoder.Encode(a, scale, plain1);
+                ckksEncoder.Encode(b, scale, plain2);
+
+
+            } else {
+                batchEncoder = new BatchEncoder(context);
+                ulong[] A = new ulong[batchEncoder.SlotCount];
+                ulong[] B = new ulong[batchEncoder.SlotCount];
+                A[0] = (ulong)a;
+                B[0] = (ulong)b;
+                batchEncoder.Encode(A, plain1);
+                batchEncoder.Encode(B, plain2);
+            }
+
+           
 
             using Ciphertext encrypted1 = new Ciphertext();
             using Ciphertext encrypted2 = new Ciphertext();
@@ -190,7 +175,7 @@ namespace SEALMobile
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var httpClient = new HttpClient();
-            var res = await httpClient.PostAsync("http://localhost:3000/ckks", content);
+            var res = await httpClient.PostAsync(this.url, content);
             CKKSres ckksRes = JsonConvert.DeserializeObject<CKKSres>(res.Content.ReadAsStringAsync().Result);
             string encryptedResultBase64 = ckksRes.result;
             MemoryStream encryptedResultStream = ToMemoryStream(encryptedResultBase64);
@@ -199,14 +184,27 @@ namespace SEALMobile
             encryptedResult.Load(context, encryptedResultStream);
 
             using Plaintext plainResult = new Plaintext();
-            List<double> result = new List<double>();
-            decryptor.Decrypt(encryptedResult, plainResult);
-            encoder.Decode(plainResult, result);
-            Utilities.PrintVector(result);
+
+            if (schemeType == "CKKS")
+            {
+                List<double> result = new List<double>();
+                decryptor.Decrypt(encryptedResult, plainResult);
+                ckksEncoder.Decode(plainResult, result);
+                Utilities.PrintVector(result);
+                c_Label.Text = "A + B + 100 = " + (result[0]).ToString("0.00000000");
+            } else
+            {
+                List<ulong> result = new List<ulong>();
+                decryptor.Decrypt(encryptedResult, plainResult);
+                batchEncoder.Decode(plainResult, result);
+                Utilities.PrintVector(result);
+                c_Label.Text = "A + B + 100 = " + (result[0]).ToString("0.00000000");
+            }
+            
 
 
 
-            c_Label.Text = "A + B + 100 = " + (result[0]).ToString("0.00000000");
+            
         }
     }
 }

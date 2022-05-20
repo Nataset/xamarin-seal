@@ -1,15 +1,29 @@
 ﻿<Properties StartupConfiguration="{3B78456A-5FE2-4DBB-ADBB-389B7B8614B4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SEALMobile.Android/SEALMobile.Android.csproj">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SEALMobile.iOS/Main.cs">
     <Files>
-      <File FileName="SEALMobile.iOS/Info.plist" />
-      <File FileName="SEALMobile/App.xaml.cs" />
-      <File FileName="SEALMobile/Utilities.cs" />
-      <File FileName="SEALMobile/MainPage.xaml.cs" />
-      <File FileName="SEALMobile/SEALMobile.csproj" />
-      <File FileName="SEALMobile/MainPage.xaml" />
-      <File FileName="SEALMobile.iOS/Main.cs" />
-      <File FileName="SEALMobile.Android/SEALMobile.Android.csproj" Line="54" Column="15" />
+      <File FileName="SEALMobile/MainPage.xaml.cs" Line="206" Column="65" />
+      <File FileName="SEALMobile/MainPage.xaml" Line="12" Column="35" />
+      <File FileName="SEALMobile.iOS/Main.cs" Line="17" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SEALMobile" expanded="True">
+            <Node name="SEALMobile" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
+              <Node name="App.xaml" expanded="True" />
+              <Node name="MainPage.xaml" expanded="True" />
+            </Node>
+            <Node name="SEALMobile.Android" expanded="True" />
+            <Node name="SEALMobile.iOS" expanded="True">
+              <Node name="Main.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

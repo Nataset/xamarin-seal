@@ -11,9 +11,9 @@
         <Entry x:Name="a_entry" Placeholder="Please Enter A Value"></Entry>
         <Entry x:Name="b_entry" Placeholder="Please Enter B Value"></Entry>
         <Label x:Name="c_Label">A + B =  </Label>
-        <Button Text="Compute" Clicked="HandleClick"/>
-        <Button Text="Compute with SEAL CKKS" Clicked="HandleClickCKKS"/>
-        <Button Text="HTTP" Clicked="HandleHTTP"/>
+        <Button Text="Server Compute with SEAL BFV" Clicked="HandleHTTP" BindingContext="BFV"/>
+        <Button Text="Server Compute with SEAL BGV" Clicked="HandleHTTP" BindingContext="BGV"/>
+        <Button Text="Server Compute with SEAL CKKS" Clicked="HandleHTTP" BindingContext="CKKS"/>
     </StackLayout>
 
 </ContentPage>
